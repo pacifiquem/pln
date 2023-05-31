@@ -15,7 +15,7 @@ function App() {
     try {
       setLoading(true);
       const response = await axios.get("https://vinuxd.vercel.app/api/pickup");
-      setCurrentPickupLine(response.json()["pickup"]);
+      setCurrentPickupLine(response.data.pickup);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching pickup line:", error);

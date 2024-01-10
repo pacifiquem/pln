@@ -25,9 +25,13 @@ function App() {
       }
     };
 
+    const handleGitHubLinkClick = () => {
+      window.open("https://github.com/pacifiquem", "_blank");
+    };
+
   return (
     <div className="App">
-      <header className="App-header">
+      <section className="app-section">
         <img src={pickupLinesLogo} alt="Pickup Lines" className="logo-image" />
         <div className="pickup-line-box">
           <p className="pickup-line-text">{currentPickupLine}</p>
@@ -35,10 +39,13 @@ function App() {
         <button className="next-button" onClick={getPickUpLine} disabled={loading}>
           {loading ? "Loading..." : "Next"}
         </button>
-      </header>
+      </section>
       <div>
       <ToastContainer />
       </div>
+      <footer className="app-footer">
+        <p>Written by <span onClick={handleGitHubLinkClick} className="github-link">@pacifiquem</span></p>
+      </footer>
     </div>
   );
 }

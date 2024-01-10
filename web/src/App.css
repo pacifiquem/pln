@@ -4,7 +4,7 @@
   text-align: center;
 }
 
-.App-header {
+.app-section {
   background-color: rgba(0, 0, 0, 0.9);
   min-height: 100vh;
   display: flex;
@@ -67,6 +67,24 @@
 .next-button:disabled {
   background-color: #666666;
   cursor: not-allowed;
+}
+
+.app-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+}
+
+.app-footer span {
+  color: #ef9696;
+}
+
+.app-footer span:hover {
+  color: #f2b49b;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {

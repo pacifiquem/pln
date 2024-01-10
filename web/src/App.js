@@ -44,7 +44,7 @@ function App() {
       <ToastContainer />
       </div>
       <footer className="app-footer">
-        <p>Written by <span onClick={handleGitHubLinkClick} className="github-link">@pacifiquem</span></p>
+        <p>Written by <span onClick={handleGitHubLinkClick} className="github-link"> MURANGWA Pacifique<@pacifiquem></span></p>
       </footer>
     </div>
   );

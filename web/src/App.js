@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 import pickupLinesLogo from "./images/k.png";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [currentPickupLine, setCurrentPickupLine] = useState("");
@@ -11,17 +13,17 @@ function App() {
     getPickUpLine();
   }, []);
 
-  const getPickUpLine = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get("https://vinuxd.vercel.app/api/pickup");
-      setCurrentPickupLine(response.data.pickup);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching pickup line:", error);
-      setLoading(false);
-    }
-  };
+    const getPickUpLine = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("https://lucky-spacesuit-bear.cyclic.app/api/pickup");
+        setCurrentPickupLine(response.data.pickup);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        toast.error("Error while fetching pickup line");
+      }
+    };
 
   return (
     <div className="App">
@@ -34,6 +36,9 @@ function App() {
           {loading ? "Loading..." : "Next"}
         </button>
       </header>
+      <div>
+      <ToastContainer />
+      </div>
     </div>
   );
 }

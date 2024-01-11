@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const dbConnection = () => {
-	const conn = mongoose.connect("mongodb://localhost:27017/pickuplines");
+	const conn = mongoose.connect("mongodb+srv://testing-stuffs:testing-stuffs@testing-stuffs.mefjqrq.mongodb.net/pln");
 
 	if (!conn) {
 		console.log("database connection interupted");

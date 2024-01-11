@@ -1,12 +1,14 @@
 const express = require('express');
 const axios = require('axios');
 require('./db')();
+const cors = require('cors');
 
 const SharedPickupLinesModel = require('./schemas');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+app.use(cors());
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');

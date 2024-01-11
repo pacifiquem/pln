@@ -73,7 +73,7 @@ function App() {
         return;
       }
 
-      navigator.clipboard.writeText(`localhost:3000/${response.data._id}?shared=true`);
+      navigator.clipboard.writeText(`https://pln-orcin.vercel.app/${response.data._id}?shared=true`);
 
       toast.success(`Pickup line shared successfully. Link copied to clipboard`);
       setSharedBy("");

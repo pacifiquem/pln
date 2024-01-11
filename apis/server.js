@@ -1,5 +1,8 @@
 const express = require('express');
 const axios = require('axios');
+require('./db')();
+
+const SharedPickupLinesModel = require('./schemas');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -12,6 +15,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.json());
+
 
 app.get('/api/pickup', async (req, res) => {
   try {
@@ -23,6 +28,29 @@ app.get('/api/pickup', async (req, res) => {
   }
 });
 
+
+app.post('/api/shared', async (req, res) => {
+  try {
+    const { sharedBy, sentTo, note, pickup } = req.body;
+    const sharedPickupLine = await SharedPickupLinesModel.create({ sharedBy, sentTo, note, pickup });
+    res.status(200).json(sharedPickupLine);
+  } catch (error) {
+    console.error('Error sharing pickup line:', error.message);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+app.get('/api/shared/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const sharedPickupLine = await SharedPickupLinesModel.findById(id);
+    res.json(sharedPickupLine);
+  } catch (error) {
+    console.error('Error fetching shared pickup line:', error.message);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

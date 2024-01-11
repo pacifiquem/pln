@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 import pickupLinesLogo from "./images/k.png";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [currentPickupLine, setCurrentPickupLine] = useState("");
@@ -22,7 +22,9 @@ function App() {
   const getPickUpLine = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("https://lucky-spacesuit-bear.cyclic.app/api/pickup");
+      const response = await axios.get(
+        "https://lucky-spacesuit-bear.cyclic.app/api/pickup"
+      );
       setCurrentPickupLine(response.data.pickup);
       setLoading(false);
     } catch (error) {
@@ -33,7 +35,9 @@ function App() {
 
   const getSharedPickupLine = async (id) => {
     try {
-      const response = await axios.get(`https://lucky-spacesuit-bear.cyclic.app/api/shared/${id}`);
+      const response = await axios.get(
+        `https://lucky-spacesuit-bear.cyclic.app/api/shared/${id}`
+      );
       const sharedLine = response.data.pickup;
       setSharedPickupLine(sharedLine);
       setShared(true);
@@ -61,21 +65,28 @@ function App() {
     }
 
     try {
-      const response = await axios.post("https://lucky-spacesuit-bear.cyclic.app/api/shared", {
-        sharedBy,
-        sentTo,
-        note,
-        pickup: currentPickupLine,
-      });
+      const response = await axios.post(
+        "https://lucky-spacesuit-bear.cyclic.app/api/shared",
+        {
+          sharedBy,
+          sentTo,
+          note,
+          pickup: currentPickupLine,
+        }
+      );
 
       if (response.status !== 200) {
         toast.error("Error while sharing pickup line");
         return;
       }
 
-      navigator.clipboard.writeText(`https://pln-orcin.vercel.app?shared=${response.data._id}`);
+      navigator.clipboard.writeText(
+        `https://pln-orcin.vercel.app?shared=${response.data._id}`
+      );
 
-      toast.success(`Pickup line shared successfully. Link copied to clipboard`);
+      toast.success(
+        `Pickup line shared successfully. Link copied to clipboard`
+      );
       setSharedBy("");
       setSentTo("");
       setNote("");
@@ -97,60 +108,92 @@ function App() {
 
   return (
     <div className="App">
-      <section className="app-section">
-        <img src={pickupLinesLogo} alt="Pickup Lines" className="logo-image groups" />
-        <div className="pickup-line-box groups">
-          <p className="pickup-line-text">{currentPickupLine}</p>
-        </div>
-        <div className="share-next-button">
-          <button className="next-button" onClick={getPickUpLine} disabled={loading}>
-            {loading ? "Loading..." : "Next"}
-          </button>
-          <button className="share-button" onClick={handleShareModalOpen}>
+      {!shared && (
+        <section className="app-section">
+          <img
+            src={pickupLinesLogo}
+            alt="Pickup Lines"
+            className="logo-image groups"
+          />
+          <div className="pickup-line-box groups">
+            <p className="pickup-line-text">{currentPickupLine}</p>
+          </div>
+          <div className="share-next-button">
+            <button
+              className="next-button"
+              onClick={getPickUpLine}
+              disabled={loading}
+            >
+              {loading ? "Loading..." : "Next"}
+            </button>
+            <button className="share-button" onClick={handleShareModalOpen}>
               Share
-          </button>
-        </div>
-      </section>
+            </button>
+          </div>
+        </section>
+      )}
 
       {shared && (
         <section className="app-section">
-          <img src={pickupLinesLogo} alt="Pickup Lines" className="logo-image groups" />
+          <img
+            src={pickupLinesLogo}
+            alt="Pickup Lines"
+            className="logo-image groups"
+          />
           <div className="pickup-line-box groups">
             <p className="pickup-line-text">{sharedPickupLine}</p>
             <p className="note-text">{note}</p>
           </div>
           <div>
-            <button className="next-button" onClick={() => {
-              setShared(false);
-              setSharedPickupLine("");
-              window.location.href = "https://pln-orcin.vercel.app";
-            }}>
+            <button
+              className="next-button"
+              onClick={() => {
+                setShared(false);
+                setSharedPickupLine("");
+                window.location.href = "https://pln-orcin.vercel.app";
+              }}
+            >
               Go Home
             </button>
           </div>
         </section>
       )}
 
-    <div>
+      <div>
         <ToastContainer />
       </div>
       <div className={`share-modal${showShareModal ? " active" : ""}`}>
         <div className="modal-content">
-          <span className="close-button" onClick={handleShareModalClose}>&times;</span>
+          <span className="close-button" onClick={handleShareModalClose}>
+            &times;
+          </span>
           <label>
             Shared by:
-            <input type="text" value={sharedBy} onChange={(e) => setSharedBy(e.target.value)} />
-            <br/>
+            <input
+              type="text"
+              value={sharedBy}
+              onChange={(e) => setSharedBy(e.target.value)}
+            />
+            <br />
           </label>
           <label>
             Sent to:
-            <input type="text" value={sentTo} onChange={(e) => setSentTo(e.target.value)} />
-            <br/>
+            <input
+              type="text"
+              value={sentTo}
+              onChange={(e) => setSentTo(e.target.value)}
+            />
+            <br />
           </label>
           <label>
             Note:
-            <input type="text" value={note} onChange={(e) => setNote(e.target.value)}  placeholder="Tell Him/Her something" />
-            <br/>
+            <input
+              type="text"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Tell Him/Her something"
+            />
+            <br />
           </label>
           <button className="share-button" onClick={handleShare}>
             Get Link
@@ -158,7 +201,13 @@ function App() {
         </div>
       </div>
       <footer className="app-footer">
-        <p>Written by <span onClick={handleGitHubLinkClick} className="github-link"> MURANGWA Pacifique</span></p>
+        <p>
+          Written by{" "}
+          <span onClick={handleGitHubLinkClick} className="github-link">
+            {" "}
+            MURANGWA Pacifique
+          </span>
+        </p>
       </footer>
     </div>
   );
